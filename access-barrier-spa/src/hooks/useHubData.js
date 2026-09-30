@@ -1,0 +1,2 @@
+import { useCallback, useEffect, useState } from 'react'
+export function useHubData(loader,dependencies=[]){const [state,setState]=useState({data:null,loading:true,error:''});const reload=useCallback(async()=>{setState(s=>({...s,loading:true,error:''}));try{const data=await loader();setState({data,loading:false,error:''})}catch(error){setState({data:null,loading:false,error:error.message||'Unable to load information.'})}},dependencies);useEffect(()=>{reload()},[reload]);return {...state,reload}}
